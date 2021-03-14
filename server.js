@@ -16,31 +16,32 @@ app.get('/',renderHomePage);
 const pgOne = require('./public/data/page-1.json');
 const pgTwo = require('./public/data/page-2.json');
 function renderHomePage(req,res){
-    const initialAnimals = createAnimalList(pgOne);
-    const animals = initialAnimals.concat(createAnimalList(pgTwo))
-    let animalNames = getAnimalNames(animals);
-    ejsObj = {animals:{animals,animalNames}};    
+    const animals = createAnimalList(pgOne,'1').concat(createAnimalList(pgTwo,'2'));
+    const animalNames = getAnimalNames(createAnimalList(pgOne,'1').concat(createAnimalList(pgTwo,'2')));
+    const filteredAnimals = animals.filter(animal => {return animal.keyword.toLowerCase() === req.query.animal || req.query.animal === 'all' });
+    const ejsObj = {animals:{animals,filteredAnimals,animalNames}};  
     res.render('index.ejs',ejsObj);
 }
 
 
-function Animal(image_url,title,description,keyword,horns){
+function Animal(image_url,title,description,keyword,horns,page){
     this.image_url = image_url,
     this.title = title,
     this.description = description,
     this.keyword = keyword,
     this.horns = horns
+    this.page = page
 }
 
-const createAnimalList = (jsonObject) =>{
-    console.log('Current Page: ',jsApp.getPageNumber());
+const createAnimalList = (jsonObject,page) =>{
     return jsonObject.map(animal =>{
         return new Animal(
             animal.image_url,
             animal.title,
             animal.description,
             animal.keyword,
-            animal.horns
+            animal.horns,
+            page
         )
     })
 }
