@@ -1,6 +1,4 @@
 'user strict'
-const jsApp = require('./public/js/app.js');
-const fs = require('fs');
 
 const express = require('express');
 const app = express();
@@ -15,11 +13,18 @@ app.get('/',renderHomePage);
 const pgOne = require('./public/data/page-1.json');
 const pgTwo = require('./public/data/page-2.json');
 function renderHomePage(req,res){
-    const animals = createAnimalList(pgOne,'1').concat(createAnimalList(pgTwo,'2'));
-    const animalNames = getAnimalNames(createAnimalList(pgOne,'1').concat(createAnimalList(pgTwo,'2')));
-    const filteredAnimals = filterAnimals(animals,req);
-    const ejsObj = {animals:{animals,filteredAnimals,animalNames}};  
-    res.render('index.ejs',ejsObj);
+    if(req._parsedOriginalUrl.path === '/' )
+    {
+        res.redirect('/?page=1&animal=all');
+    }
+    else
+    {
+        const animals = createAnimalList(pgOne,'1').concat(createAnimalList(pgTwo,'2'));
+        const animalNames = getAnimalNames(createAnimalList(pgOne,'1').concat(createAnimalList(pgTwo,'2')));
+        const filteredAnimals = filterAnimals(animals,req);
+        const ejsObj = {animals:{animals,filteredAnimals,animalNames}};  
+        res.render('index.ejs',ejsObj);
+    }
 }
 
 
@@ -50,7 +55,7 @@ const filterAnimals = (animalList,req) =>{
         const selectedAll = req.query.animal === 'all';
         const animalsOnPage = animal.page === req.query.page;
         const selectedSpecificAnimal = animal.keyword.toLowerCase() === req.query.animal ;
-        return selectedAll ? animalsOnPage :selectedSpecificAnimal;
+        return selectedAll ? animalsOnPage : selectedSpecificAnimal;
     })
 }
 
