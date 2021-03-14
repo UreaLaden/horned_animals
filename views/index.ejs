@@ -14,23 +14,26 @@
     <h1>Welcome to Horned Animals 2.0!</h1>
     <div class="primary">
         <nav>
-            <a href="#">Page 1</a>
-            <a href="#">Page 2</a>
+            <a class='page1' href="#">Page 1</a>
+            <a class='page2' href="#">Page 2</a>
             <div class="dropdown">
                 <button class="dropbtn">Animals
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
-                    <a href="#">Animal 1</a>
-                    <a href="#">Animal 3</a>
+                    <% animals.animalNames.forEach(animal => { %>
+                        <a href="#"><%= animal %></a>
+                    <% }) %>
                 </div>
             </div>
         </nav>
     </div>
+    <input type="text">
+    <button id='filter'>Filter</button>
 
 
     <div class="grid">
-    <% animals.forEach(animal =>{ %>
+    <% animals.animals.forEach(animal =>{ %>
             <div class = 'grid-item'>
                 <h3><%= animal.title %></h3>
                 <img src="<%= animal.image_url %>" alt="">

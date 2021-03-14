@@ -16,8 +16,10 @@ app.get('/',renderHomePage);
 const pgOne = require('./public/data/page-1.json');
 const pgTwo = require('./public/data/page-2.json');
 function renderHomePage(req,res){
-    const animals = createAnimalList(pgOne);
-    ejsObj = {animals:animals};    
+    const initialAnimals = createAnimalList(pgOne);
+    const animals = initialAnimals.concat(createAnimalList(pgTwo))
+    let animalNames = getAnimalNames(animals);
+    ejsObj = {animals:{animals,animalNames}};    
     res.render('index.ejs',ejsObj);
 }
 
@@ -30,8 +32,9 @@ function Animal(image_url,title,description,keyword,horns){
     this.horns = horns
 }
 
-const createAnimalList = jsOnObject =>{
-    return jsOnObject.map(animal =>{
+const createAnimalList = (jsonObject) =>{
+    console.log('Current Page: ',jsApp.getPageNumber());
+    return jsonObject.map(animal =>{
         return new Animal(
             animal.image_url,
             animal.title,
@@ -40,6 +43,17 @@ const createAnimalList = jsOnObject =>{
             animal.horns
         )
     })
+}
+
+const getAnimalNames = animalList =>{
+    const animalNames = [];
+    animalList.map(animal => {
+        if(!animalNames.includes(animal.keyword))
+        {
+            animalNames.push(animal.keyword); 
+        }
+    })
+    return animalNames;
 }
 
 app.listen(PORT,()=>{console.log(`Listening on http://localhost:${PORT}`)})
