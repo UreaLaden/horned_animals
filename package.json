@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/UreaLaden/horned_animals/issues"
   },
-  "homepage": "https://github.com/UreaLaden/horned_animals#readme"
+  "homepage": "https://github.com/UreaLaden/horned_animals#readme",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.18.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "fs": "^0.0.1-security"    
+  }
 }
