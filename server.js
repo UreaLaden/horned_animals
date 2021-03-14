@@ -6,7 +6,6 @@ const express = require('express');
 const app = express();
 const PORT = 4000;
 
-
 app.use(express.static('./public'));
 app.use(express.urlencoded({extended:true}));
 app.set('view engine','ejs');
@@ -18,7 +17,7 @@ const pgTwo = require('./public/data/page-2.json');
 function renderHomePage(req,res){
     const animals = createAnimalList(pgOne,'1').concat(createAnimalList(pgTwo,'2'));
     const animalNames = getAnimalNames(createAnimalList(pgOne,'1').concat(createAnimalList(pgTwo,'2')));
-    const filteredAnimals = animals.filter(animal => {return animal.keyword.toLowerCase() === req.query.animal || req.query.animal === 'all' });
+    const filteredAnimals = filterAnimals(animals,req);
     const ejsObj = {animals:{animals,filteredAnimals,animalNames}};  
     res.render('index.ejs',ejsObj);
 }
@@ -43,6 +42,15 @@ const createAnimalList = (jsonObject,page) =>{
             animal.horns,
             page
         )
+    })
+}
+
+const filterAnimals = (animalList,req) =>{
+    return animalList.filter(animal =>{
+        const selectedAll = req.query.animal === 'all';
+        const animalsOnPage = animal.page === req.query.page;
+        const selectedSpecificAnimal = animal.keyword.toLowerCase() === req.query.animal ;
+        return selectedAll ? animalsOnPage :selectedSpecificAnimal;
     })
 }
 
