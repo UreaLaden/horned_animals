@@ -3,9 +3,10 @@ body{
     font-size: 13px;
     text-transform: uppercase;
     text-align: center;
+    margin: 7%;
 }
 .grid-item{
-    width:200px;   
+    width:28%;   
     border: solid 2px black;  
     margin-bottom: 5px;   
 }
@@ -24,12 +25,9 @@ nav{
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
     overflow: hidden;
-    margin-bottom: 10px;
-}
-
-input{
     margin-bottom: 50px;
 }
+
 .primary{
     display:flex;
     justify-content: center;

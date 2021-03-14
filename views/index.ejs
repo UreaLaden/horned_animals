@@ -3,7 +3,7 @@
 <head>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
-    <script src="js/app.js" type="module"></script>
+    <script src="js/app.js" ></script>
     <link rel="stylesheet" href="css/styles.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,26 +14,24 @@
     <h1>Welcome to Horned Animals 2.0!</h1>
     <div class="primary">
         <nav>
-            <a class='page1' href="#">Page 1</a>
-            <a class='page2' href="#">Page 2</a>
+            <a class='page1' href="/?page=1">Page 1</a>
+            <a class='page2' href="/?page=2">Page 2</a>
             <div class="dropdown">
                 <button class="dropbtn">Animals
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
-                    <% animals.animalNames.forEach(animal => { %>
-                        <a href="#"><%= animal %></a>
+                    <a href="/?page=1&animal=all">All</a>
+                    <% animals.animalNames.forEach((animal,idx) => { %>
+                        <a href="/?animal=<%= animal.toLowerCase() %>"><%= animal %></a>
                     <% }) %>
                 </div>
             </div>
         </nav>
     </div>
-    <input type="text">
-    <button id='filter'>Filter</button>
-
 
     <div class="grid">
-    <% animals.animals.forEach(animal =>{ %>
+    <% animals.filteredAnimals.forEach(animal =>{ %>
             <div class = 'grid-item'>
                 <h3><%= animal.title %></h3>
                 <img src="<%= animal.image_url %>" alt="">
