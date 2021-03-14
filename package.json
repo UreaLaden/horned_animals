@@ -1,0 +1,19 @@
+{
+  "name": "horned_animals",
+  "version": "1.0.0",
+  "description": "Simple Application to display horned animals",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UreaLaden/horned_animals.git"
+  },
+  "author": "Leaundrae Mckinney",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UreaLaden/horned_animals/issues"
+  },
+  "homepage": "https://github.com/UreaLaden/horned_animals#readme"
+}
