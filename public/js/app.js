@@ -6,7 +6,7 @@ if(typeof window !== 'undefined'){
         
         const masonry = new Masonry(grid,{
             itemSelector: '.grid-item',
-            gutter:10
+            gutter:15
         })
         masonry.on('LayoutComplete',()=> console.log("Layout Complete"));
     }

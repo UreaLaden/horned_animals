@@ -33,9 +33,11 @@
     <div class="grid">
     <% animals.filteredAnimals.forEach(animal =>{ %>
             <div class = 'grid-item'>
-                <h3><%= animal.title %></h3>
-                <img src="<%= animal.image_url %>" alt="">
-                <p><%= animal.description %></p>
+                <div class="img_wrap">
+                    <h3><%= animal.title %></h3>
+                    <img class = 'img_img' src="<%= animal.image_url %>" alt="">
+                    <p class='img_description'><%= animal.description %></p>
+                </div>
             </div>
     <% }) %>
     </div>
